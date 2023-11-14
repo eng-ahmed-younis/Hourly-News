@@ -1,5 +1,5 @@
 # Hourly-News
-News Application
+
 [![kotlin](https://img.shields.io/github/languages/top/bikcodeh/ToDoApp.svg?style=for-the-badge&color=blueviolet)](https://kotlinlang.org/) [![Android API](https://img.shields.io/badge/api-23%2B-brightgreen.svg?style=for-the-badge)](https://android-arsenal.com/api?level=23) [![Build status](https://build.appcenter.ms/v0.1/apps/86493375-a9cd-491f-a2b3-43176506e6d2/branches/main/badge)](https://appcenter.ms)
 
 
