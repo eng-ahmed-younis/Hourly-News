@@ -52,7 +52,7 @@ fun DetailContent(article: TopNewsArticle) {
             error = painterResource(id = R.drawable.ic_broken_image),
             modifier = Modifier
                 .fillMaxWidth()
-                .height(200.dp)
+                .height(300.dp)
         )
 
 
