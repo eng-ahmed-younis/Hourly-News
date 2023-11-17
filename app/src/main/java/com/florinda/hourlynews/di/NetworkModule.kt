@@ -43,8 +43,11 @@ object NetworkModule {
 
 
     private fun loggingInterceptorProvider(): HttpLoggingInterceptor  =
-         HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
-
+         HttpLoggingInterceptor().apply {
+             HttpLoggingInterceptor.Level.BASIC
+             HttpLoggingInterceptor.Level.BODY
+             HttpLoggingInterceptor.Level.HEADERS
+         }
 
     @Provides
     @Singleton
