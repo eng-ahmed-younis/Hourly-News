@@ -12,7 +12,7 @@ android {
     defaultConfig {
         applicationId = "com.florinda.hourlynews"
         minSdk = 27
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -27,7 +27,8 @@ android {
             // Enables code shrinking, obfuscation, and optimization for only
             isMinifyEnabled = true
             // Enables resource shrinking, which is performed by the
-            isShrinkResources = true
+
+             isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -58,6 +59,7 @@ android {
         buildConfig = true
     }
 
+
 }
 
 dependencies {
@@ -79,8 +81,6 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
     implementation(project(mapOf("path" to ":data")))
-   // implementation(project(mapOf("path" to ":domain")))
-  //  implementation(project(mapOf("path" to ":common")))
 
 
     // material compose
