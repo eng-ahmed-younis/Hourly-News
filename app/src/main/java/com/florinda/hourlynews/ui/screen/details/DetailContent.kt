@@ -44,7 +44,7 @@ fun DetailContent(article: TopNewsArticle) {
     ) {
         AsyncImage(
             model = ImageRequest.Builder(context)
-                .data(article?.urlToImage)
+                .data(article.urlToImage)
                 .crossfade(true)
                 .build(),
             contentDescription = "",

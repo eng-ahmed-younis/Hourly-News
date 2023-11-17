@@ -1,6 +1,5 @@
 package com.florinda.hourlynews.ui.screen.viewmodel
 
-import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -13,8 +12,6 @@ import com.florinda.hourlynews.di.IoDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -24,19 +21,15 @@ class MainViewModel @Inject constructor(
     private val getArticlesUseCase: GetArticlesUseCase,
     private val getSearchArticlesUseCase: GetSearchArticlesUseCase,
     @IoDispatcher private val dispatcher: CoroutineDispatcher
-): ViewModel() {
+) : ViewModel() {
 
+     var mainState = MutableStateFlow(NewsUiState())
+         private set
 
-    private val _mainState = MutableStateFlow(NewsUiState())
-    val mainState = _mainState.asStateFlow()
-
-
-    private val _selectedNews: MutableStateFlow<TopNewsArticle?> = MutableStateFlow(null)
-    val selectedNews: StateFlow<TopNewsArticle?> = _selectedNews.asStateFlow()
+     var selectedNews:MutableStateFlow<TopNewsArticle?> = MutableStateFlow(null)
+         private set
 
     val searchQuery: MutableState<String> = mutableStateOf("")
-
-
 
 
     init {
@@ -44,16 +37,13 @@ class MainViewModel @Inject constructor(
     }
 
 
-
-     fun getArticles(){
-        _mainState.update {it.copy(isLoading = true)}
-        viewModelScope.launch (dispatcher){
-            getArticlesUseCase().collect{
+    fun getArticles() {
+        mainState.update { it.copy(isLoading = true) }
+        viewModelScope.launch(dispatcher) {
+            getArticlesUseCase().collect {
                 it.fold(
                     onSuccess = {
-                        Log.i("mainStatemainState",it.articles?.size.toString())
-
-                        _mainState.update { currentState ->
+                        mainState.update { currentState ->
                             currentState.copy(
                                 isLoading = false,
                                 articles = it.articles ?: emptyList(),
@@ -62,7 +52,7 @@ class MainViewModel @Inject constructor(
                         }
                     },
                     onFailure = {
-                        _mainState.update { currentState->
+                        mainState.update { currentState ->
                             currentState.copy(
                                 isLoading = false,
                                 error = it
@@ -75,12 +65,12 @@ class MainViewModel @Inject constructor(
     }
 
     fun getSearchArticles(query: String) {
-        _mainState.update { currentState -> currentState.copy(isLoading = true) }
+        mainState.update { currentState -> currentState.copy(isLoading = true) }
         viewModelScope.launch(dispatcher) {
-            getSearchArticlesUseCase(query).collect{
+            getSearchArticlesUseCase(query).collect {
                 it.fold(
                     onSuccess = {
-                        _mainState.update { currentState ->
+                        mainState.update { currentState ->
                             currentState.copy(
                                 isLoading = false,
                                 articles = it.articles ?: emptyList(),
@@ -89,7 +79,7 @@ class MainViewModel @Inject constructor(
                         }
                     },
                     onFailure = {
-                        _mainState.update { currentState ->
+                        mainState.update { currentState ->
                             currentState.copy(
                                 isLoading = false,
                                 error = it
@@ -105,7 +95,7 @@ class MainViewModel @Inject constructor(
 
     fun getSelectedArticle(index: Int?) {
         index?.let {
-            _selectedNews.value = _mainState.value.articles[index]
+            selectedNews.value = mainState.value.articles[index]
         }
     }
 

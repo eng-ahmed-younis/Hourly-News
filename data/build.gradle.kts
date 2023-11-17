@@ -41,7 +41,7 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
-    api(project(mapOf("path" to ":domain")))
+    api(project(path = ":domain"))
 
 
     /** OkHttp */
@@ -53,7 +53,5 @@ dependencies {
     val version_retrofit = "2.9.0"
     implementation ("com.squareup.retrofit2:retrofit:$version_retrofit")
 
-    /** Coil */
-    implementation ("com.github.skydoves:landscapist-coil:1.4.1")
 
 }

@@ -24,9 +24,10 @@ android {
 
     buildTypes {
         release {
-            //   buildConfigField("String", "NEWS_API_KEY", "b94ca5c7a9974abbbd1ea53b619c9c89")
-
-            isMinifyEnabled = false
+            // Enables code shrinking, obfuscation, and optimization for only
+            isMinifyEnabled = true
+            // Enables resource shrinking, which is performed by the
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -78,12 +79,11 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
     implementation(project(mapOf("path" to ":data")))
-    implementation(project(mapOf("path" to ":domain")))
-    implementation(project(mapOf("path" to ":common")))
+   // implementation(project(mapOf("path" to ":domain")))
+  //  implementation(project(mapOf("path" to ":common")))
 
 
     // material compose
-    //implementation ("androidx.compose.material:material:1.5.4")
     implementation("androidx.compose.material3:material3:1.1.2")
 
     /** Lifecycle */
